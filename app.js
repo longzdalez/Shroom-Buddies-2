@@ -276,11 +276,11 @@ function listTracker(t) {
     <div class="card"><h2>Your ${L.label.toLowerCase()}</h2>
       ${items.map(i => `<div class="item-row"><span>${esc(i.name)}</span>
         ${L.reminders ? `<input type="time" value="${i.time || ''}" data-time="${i.id}" aria-label="Reminder time">
-          ${i.time ? `<button class="ghost small" data-ics="${i.id}" title="Add a daily reminder to your phone calendar">📅</button>` : ''}` : ''}
+          ${i.time ? `<button class="ghost small" data-ics="${i.id}" title="Add a repeating reminder to your phone calendar">📅</button>` : ''}` : ''}
         <button class="ghost small" data-del-item="${i.id}" data-lt="${t}">✕</button></div>`).join('')}
       <div class="row" style="margin-top:10px"><input id="newItem" placeholder="${L.ph}" style="margin:0">
         <button data-act="addItem" data-lt="${t}" style="flex:0">Add</button></div>
-      ${L.reminders ? `<p class="muted" style="font-size:.8rem;margin-bottom:0">Optional: set a time for a reminder. You'll see it on the Today page when it's due, and 📅 adds a daily alarm to your phone's calendar so it reminds you even when the app is closed.</p>` : ''}</div>`;
+      ${L.reminders ? `<p class="muted" style="font-size:.8rem;margin-bottom:0">Optional: set a time for a reminder. You'll see it on the Today page when it's due, and 📅 adds a repeating alarm to your phone's calendar (on the same days as the supplement) so it reminds you even when the app is closed.</p>` : ''}</div>`;
 }
 
 // reminders due now (supplements with a time that aren't ticked yet today)
@@ -293,9 +293,17 @@ function remindersHTML() {
 
 // a repeating daily calendar event with an alarm, which phones can import (works with the app closed)
 function downloadICS(item) {
-  const [hh, mm] = item.time.split(':'), d = today().replace(/-/g, ''), stamp = new Date().toISOString().replace(/[-:]|\.\d+/g, '');
+  const [hh, mm] = item.time.split(':'), stamp = new Date().toISOString().replace(/[-:]|\.\d+/g, '');
+  // repeat the alarm the same way the item repeats: every day, certain weekdays, or every X days
+  const f = item.freq || { type: 'daily' }, BYDAY = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
+  let rule = 'RRULE:FREQ=DAILY';
+  if (f.type === 'days' && (f.days || []).length) rule = 'RRULE:FREQ=WEEKLY;BYDAY=' + [...f.days].sort().map(i => BYDAY[i]).join(',');
+  else if (f.type === 'every') rule = 'RRULE:FREQ=DAILY;INTERVAL=' + Math.max(1, +f.every || 1);
+  // start on the first day it is actually due (today or later)
+  let first = new Date(); for (let n = 0; n < 400 && !isDue(item, dkey(first)); n++) first.setDate(first.getDate() + 1);
+  const d = dkey(first).replace(/-/g, '');
   const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Shroom Buddies//EN', 'BEGIN:VEVENT', `UID:${item.id}-${Date.now()}@shroombuddies`, `DTSTAMP:${stamp}`,
-    `DTSTART:${d}T${hh}${mm}00`, 'DURATION:PT5M', 'RRULE:FREQ=DAILY', `SUMMARY:💊 Take ${item.name}`, 'DESCRIPTION:Reminder from Shroom Buddies',
+    `DTSTART:${d}T${hh}${mm}00`, 'DURATION:PT5M', rule, `SUMMARY:💊 Take ${item.name}`, 'DESCRIPTION:Reminder from Shroom Buddies',
     'BEGIN:VALARM', 'ACTION:DISPLAY', `DESCRIPTION:Take ${item.name}`, 'TRIGGER:PT0M', 'END:VALARM', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
   const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
   a.download = `reminder-${item.name.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}.ics`; a.click();
