@@ -8,9 +8,11 @@ A free app for daily practices, journaling, a calendar, guides and reels.
 - Plain HTML, CSS and JavaScript only. No paid services or libraries.
 
 ## Features
-- 🌱 **Today**: daily practice checklist, streak, quote of the day
+- 🌱 **Today**: greeting, mood and energy check-ins, streak, quote of the day
+- ✅ **Practices**: daily practice checklist
+- 💊 **Supplements** and 📚 **Reading**: tick lists with how often and reminders
 - 📓 **Journal**: mood, energy, intention and notes (type or speak)
-- 🍄 **Tracker**: microdose or grams per day, plus supplements and food with reminders
+- 🍄 **Tracker**: microdose or grams per day, plus food
 - 📅 **Calendar**: everything together, plus a mood, energy and dose graph
 - 📖 **Guides**: folders of guides; the owner can edit the wording
 - 🎬 **Reels**: videos shared with everyone, with previews
@@ -19,7 +21,7 @@ A free app for daily practices, journaling, a calendar, guides and reels.
 ## Publish it (free, GitHub Pages)
 1. On GitHub, open this repo → **Settings → Pages**.
 2. Under **Build and deployment**, set **Source** to *Deploy from a branch*, **Branch** to `main`, folder `/ (root)`, and press **Save**.
-3. After a minute or two the app is live at **https://longzdalez.github.io/Shroom-Buddies-/**
+3. After a minute or two the app is live at **https://longzdalez.github.io/Shroom-Buddies-2/**
 4. Share that link. Anyone can then install it (see below). Nothing is paid and no app store is needed.
 
 ## How people install it
@@ -47,4 +49,4 @@ Admin mode is per phone and is not included in backups.
 - **Website button:** put your address in `site.json` as `"website": "https://…"`. A "Visit our website" button then appears on the Reels page.
 
 ## Updating the app
-When you change files, bump `CACHE` in `sw.js` (e.g. `sb-v12`) so phones pick up the new version.
+When you change files, bump `CACHE` in `sw.js` (e.g. `sb-v21`) so phones pick up the new version.
