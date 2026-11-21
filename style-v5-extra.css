@@ -70,3 +70,9 @@ button.icon.on { filter: none; }
 .ttable .trow { grid-template-columns: 1.6fr repeat(4, .6fr); gap: 4px; font-size: .82rem; }
 .dose-row input { flex: 1 1 56px; min-width: 56px; }
 @media (max-width: 370px) { .dose-row { gap: 6px; } .dose-row button { padding: 9px 8px; font-size: .85rem; } }
+
+/* settings button: golden gear to match the home button */
+#settingsBtn { padding: 5px 7px; line-height: 0; }
+#settingsBtn .gear-ico { width: 26px; height: 26px; filter: drop-shadow(0 0 5px rgba(244, 207, 110, .55)); transition: transform .6s var(--spring), filter .3s; }
+#settingsBtn:active { transform: none; }
+#settingsBtn:active .gear-ico { transform: rotate(90deg) scale(.9); }
