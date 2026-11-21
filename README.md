@@ -1,22 +1,30 @@
 # 🍄 Shroom Buddies
 
-A free app for daily practices, journaling, a calendar, guides and reels.
+A free app for daily check-ins, practices, a mushroom tracker, journaling, intentions, inspiration, guides, reels and useful links.
 
 - **No app store, no accounts, no cost.** It's a web app you add to your home screen on Android or iPhone.
 - **All personal data stays on each phone** (browser storage). Settings → Backup exports and imports it.
 - **Works offline** after the first visit.
 - Plain HTML, CSS and JavaScript only. No paid services or libraries.
 
-## Features
-- 🌱 **Today**: greeting, mood and energy check-ins, streak, quote of the day
-- ✅ **Practices**: daily practice checklist
-- 💊 **Supplements** and 📚 **Reading**: tick lists with how often and reminders
-- 📓 **Journal**: mood, energy, intention and notes (type or speak)
-- 🍄 **Tracker**: microdose or grams per day, plus food
-- 📅 **Calendar**: everything together, plus a mood, energy and dose graph
-- 📖 **Guides**: folders of guides; the owner can edit the wording
-- 🎬 **Reels**: videos shared with everyone, with previews
-- ⚙️ **Settings**: install instructions, practices, backup, admin sign-in
+## Pages (swipe left and right, or use the bottom bar; 🏠 goes home)
+1. **Home**: quote, today's progress, and *How are you today?* (mood, energy and focus for morning, afternoon and evening, plus this week)
+2. 🍄 **Tracker**: month calendar, everything for any day, and a full-screen graph showing how things connect
+3. 🎯 **Intentions**: two-column list with tick boxes (ticked items hide on the page)
+4. 🧘 **Practices**: daily checklist
+5. 📓 **Journal**: mood, energy, intention and notes (type or speak)
+6. 🥗 **Food & Supplements**: supplements (with how often and calendar alarms) and food
+7. 💡 **Inspiration**: Material and Author / Source, with tick boxes
+8. 📖 **Guides & Reels**: usage guides, reels, and Useful Links lists (Material, Author / Source, Link, Notes)
+
+Tap a box to open it. Press and hold a list to add, change or remove things. ⚙️ opens Settings.
+
+## Shared files the owner edits on GitHub
+- `reels.json`: reels everyone sees
+- `links.json`: Useful Links everyone sees (made by **Share this list with everyone** in a links list)
+- `guides/`: the guides
+- `quotes.json`: quote of the day
+- `site.json`: website button and admin passphrase fingerprint
 
 ## Publish it (free, GitHub Pages)
 1. On GitHub, open this repo → **Settings → Pages**.
@@ -49,4 +57,6 @@ Admin mode is per phone and is not included in backups.
 - **Website button:** put your address in `site.json` as `"website": "https://…"`. A "Visit our website" button then appears on the Reels page.
 
 ## Updating the app
-When you change files, bump `CACHE` in `sw.js` (e.g. `sb-v21`) so phones pick up the new version.
+When you change files, bump `CACHE` in `sw.js` (e.g. `sb-v24`) so phones pick up the new version.
+
+The main code and styles are in `app-v3.js` and `style-v3.css`. For a big update, give them a new number (for example `app-v4.js`), change the two names in `index.html` and `sw.js`, and delete the old ones. New names mean phone downloads never clash with older copies.
