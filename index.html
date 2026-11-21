@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cormorant+Garamond:wght@600&display=swap">
 <link rel="stylesheet" href="style-v3.css">
-<link rel="stylesheet" href="style-v4-extra.css">
+<link rel="stylesheet" href="style-v5-extra.css">
 </head>
 <body class="splashing">
   <div id="bg"></div>
@@ -31,7 +31,7 @@
   </div>
 
   <header>
-    <button id="homeBtn" class="icon left" aria-label="Home">🏠</button>
+    <button id="homeBtn" class="icon left" aria-label="Home"><svg class="home-ico" viewBox="0 0 26 26" aria-hidden="true"><defs><linearGradient id="homeGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6d6"/><stop offset=".55" stop-color="#f4cf6e"/><stop offset="1" stop-color="#c8952f"/></linearGradient></defs><path d="M3.2 12.4 13 4l9.8 8.4" fill="none" stroke="url(#homeGold)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 11v9.6c0 .9.6 1.6 1.4 1.6h3.8v-5.4a1.8 1.8 0 0 1 3.6 0v5.4h3.8c.8 0 1.4-.7 1.4-1.6V11" fill="none" stroke="url(#homeGold)" stroke-width="2.1" stroke-linejoin="round"/><path d="M21 2.2l.55 1.35 1.35.55-1.35.55L21 6l-.55-1.35-1.35-.55 1.35-.55z" fill="#fff2c2"/></svg></button>
     <h1 class="brand" aria-label="Shroom Buddies"><span>Shroom</span><img src="img/logo.svg" alt=""><span>Buddies</span></h1>
     <button id="settingsBtn" class="icon" aria-label="Settings">⚙️</button>
   </header>
@@ -42,6 +42,7 @@
   <nav id="nav">
     <div id="navGlow"></div>
     <button data-go="tracker"><span class="ico"><img class="shroom" src="img/logo.svg" alt=""></span><span>Tracker</span></button>
+    <button data-go="graph"><span class="ico">📈</span><span>Graph</span></button>
     <button data-go="intentions"><span class="ico">🎯</span><span>Intentions</span></button>
     <button data-go="practices"><span class="ico">🧘</span><span>Practices</span></button>
     <button data-go="journal"><span class="ico">📓</span><span>Journal</span></button>
@@ -58,6 +59,6 @@
 
   <div id="toast" role="status"><span id="toastText"></span><button id="toastBtn" class="small hidden">Undo</button></div>
   <div id="fx" aria-hidden="true"></div>
-  <script src="app-v4.js"></script>
+  <script src="app-v5.js"></script>
 </body>
 </html>

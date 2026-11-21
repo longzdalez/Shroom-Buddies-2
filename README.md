@@ -7,15 +7,16 @@ A free app for daily check-ins, practices, a mushroom tracker, journaling, inten
 - **Works offline** after the first visit.
 - Plain HTML, CSS and JavaScript only. No paid services or libraries.
 
-## Pages (swipe left and right, or use the bottom bar; 🏠 goes home)
+## Pages (swipe left and right, or use the bottom bar; the golden house at the top goes home)
 1. **Home**: quote, today's progress, and *How are you today?* (mood, energy and focus for morning, afternoon and evening, plus this week)
-2. 🍄 **Tracker**: month calendar, everything for any day, and a full-screen graph showing how things connect
-3. 🎯 **Intentions**: two-column list with tick boxes (ticked items hide on the page)
-4. 🧘 **Practices**: daily checklist
-5. 📓 **Journal**: mood, energy, intention and notes (type or speak)
-6. 🥗 **Food & Supplements**: supplements (with how often and calendar alarms) and food
-7. 💡 **Literature & Related Material**: Material and Author / Source, with tick boxes
-8. 📖 **Guides & Reels**: usage guides, reels, and Related Material lists (Material, Author / Source, Link, Notes; 💡 adds an entry to Literature & Related Material)
+2. 🍄 **Tracker**: month calendar and mushroom logging for any day, all on one screen
+3. 📈 **Graph**: your daily average (mood, energy and focus) over 1 week to 3 months, with the separate lines, day details, best time of day and how things connect
+4. 🎯 **Intentions**: two-column list with tick boxes (ticked items hide on the page)
+5. 🧘 **Practices**: daily checklist
+6. 📓 **Journal**: mood, energy, intention and notes (type or speak)
+7. 🥗 **Food & Supplements**: supplements (with how often and calendar alarms) and food
+8. 💡 **Literature & Related Material**: Material and Author / Source, with tick boxes
+9. 📖 **Guides & Reels**: usage guides, reels, and Related Material lists (Material, Author / Source, Link, Notes; 💡 adds an entry to Literature & Related Material)
 
 Tap a box to open it. Press and hold a list to add, change or remove things. ⚙️ opens Settings.
 
@@ -57,6 +58,6 @@ Admin mode is per phone and is not included in backups.
 - **Website button:** put your address in `site.json` as `"website": "https://…"`. A "Visit our website" button then appears on the Reels page.
 
 ## Updating the app
-When you change files, bump `CACHE` in `sw.js` (e.g. `sb-v25`) so phones pick up the new version.
+When you change files, bump `CACHE` in `sw.js` (e.g. `sb-v26`) so phones pick up the new version.
 
-The main code is in `app-v4.js`; the styles are `style-v3.css` plus `style-v4-extra.css`. For a big update, give them a new number (for example `app-v5.js`), change the two names in `index.html` and `sw.js`, and delete the old ones. New names mean phone downloads never clash with older copies.
+The main code is in `app-v5.js`; the styles are `style-v3.css` plus `style-v5-extra.css`. For a big update, give them a new number (for example `app-v6.js`), change the two names in `index.html` and `sw.js`, and delete the old ones. New names mean phone downloads never clash with older copies.
