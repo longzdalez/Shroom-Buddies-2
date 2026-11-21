@@ -14,14 +14,14 @@ A free app for daily check-ins, practices, a mushroom tracker, journaling, inten
 4. 🧘 **Practices**: daily checklist
 5. 📓 **Journal**: mood, energy, intention and notes (type or speak)
 6. 🥗 **Food & Supplements**: supplements (with how often and calendar alarms) and food
-7. 💡 **Inspiration**: Material and Author / Source, with tick boxes
-8. 📖 **Guides & Reels**: usage guides, reels, and Useful Links lists (Material, Author / Source, Link, Notes)
+7. 💡 **Literature & Related Material**: Material and Author / Source, with tick boxes
+8. 📖 **Guides & Reels**: usage guides, reels, and Related Material lists (Material, Author / Source, Link, Notes; 💡 adds an entry to Literature & Related Material)
 
 Tap a box to open it. Press and hold a list to add, change or remove things. ⚙️ opens Settings.
 
 ## Shared files the owner edits on GitHub
 - `reels.json`: reels everyone sees
-- `links.json`: Useful Links everyone sees (made by **Share this list with everyone** in a links list)
+- `links.json`: Related Material everyone sees (made by **Share this list with everyone** in a links list)
 - `guides/`: the guides
 - `quotes.json`: quote of the day
 - `site.json`: website button and admin passphrase fingerprint
@@ -57,6 +57,6 @@ Admin mode is per phone and is not included in backups.
 - **Website button:** put your address in `site.json` as `"website": "https://…"`. A "Visit our website" button then appears on the Reels page.
 
 ## Updating the app
-When you change files, bump `CACHE` in `sw.js` (e.g. `sb-v24`) so phones pick up the new version.
+When you change files, bump `CACHE` in `sw.js` (e.g. `sb-v25`) so phones pick up the new version.
 
-The main code and styles are in `app-v3.js` and `style-v3.css`. For a big update, give them a new number (for example `app-v4.js`), change the two names in `index.html` and `sw.js`, and delete the old ones. New names mean phone downloads never clash with older copies.
+The main code is in `app-v4.js`; the styles are `style-v3.css` plus `style-v4-extra.css`. For a big update, give them a new number (for example `app-v5.js`), change the two names in `index.html` and `sw.js`, and delete the old ones. New names mean phone downloads never clash with older copies.
