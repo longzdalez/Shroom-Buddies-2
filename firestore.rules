@@ -1,0 +1,95 @@
+rules_version = '2';
+// Shroom Buddies community: who may read and write what.
+// Paste all of this into Firebase console → Firestore Database → Rules → Publish.
+service cloud.firestore {
+  match /databases/{db}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function uid() { return request.auth.uid; }
+    function isAdmin() { return signedIn() && exists(/databases/$(db)/documents/admins/$(uid())); }
+    function me() { return get(/databases/$(db)/documents/users/$(uid())).data; }
+    function member() { return signedIn() && exists(/databases/$(db)/documents/users/$(uid())) && me().get('blocked', false) != true; }
+    function text(s, max) { return s is string && s.size() > 0 && s.size() <= max; }
+    // no buying, selling, sourcing or contact details
+    function clean(s) {
+      return !s.lower().matches('(?s).*(\\bsell|selling|seller|for sale|vendor|\\bplug\\b|dm me|pm me|telegram|wickr|whatsapp me|snapchat|cash app|paypal me|venmo|bitcoin|crypto|price per).*');
+    }
+    function topicOk(t) { return t in ['intro', 'micro', 'journeys', 'practices', 'resources', 'general']; }
+
+    // usernames/{lowercase name} → {uid, name, created}: makes every username unique
+    match /usernames/{key} {
+      allow read: if true;
+      allow create: if signedIn()
+        && key.matches('^[a-z0-9_]{3,20}$')
+        && request.resource.data.keys().hasOnly(['uid', 'name', 'created'])
+        && request.resource.data.uid == uid()
+        && request.resource.data.name.lower() == key
+        && request.resource.data.created == request.time
+        && !exists(/databases/$(db)/documents/users/$(uid()));
+      allow delete: if isAdmin() || (signedIn() && resource.data.uid == uid());
+    }
+
+    // users/{uid} → {name, created, blocked}
+    match /users/{userId} {
+      allow read: if signedIn();
+      allow create: if signedIn() && userId == uid()
+        && request.resource.data.keys().hasOnly(['name', 'created'])
+        && request.resource.data.created == request.time
+        && getAfter(/databases/$(db)/documents/usernames/$(request.resource.data.name.lower())).data.uid == uid();
+      allow update: if isAdmin() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['blocked']);
+      allow delete: if isAdmin() || (signedIn() && userId == uid());
+    }
+
+    // threads/{id} → {topic, title, body, uid, name, created, lastAt, lastName, replyCount, hidden}
+    match /threads/{threadId} {
+      allow read: if signedIn();
+      allow create: if member()
+        && request.resource.data.keys().hasOnly(['topic', 'title', 'body', 'uid', 'name', 'created', 'lastAt', 'lastName', 'replyCount', 'hidden'])
+        && request.resource.data.uid == uid()
+        && request.resource.data.name == me().name
+        && request.resource.data.lastName == me().name
+        && topicOk(request.resource.data.topic)
+        && text(request.resource.data.title, 120) && text(request.resource.data.body, 4000)
+        && clean(request.resource.data.title) && clean(request.resource.data.body)
+        && request.resource.data.created == request.time
+        && request.resource.data.lastAt == request.time
+        && request.resource.data.replyCount == 0
+        && request.resource.data.hidden == false;
+      // replying bumps the reply count; moderators can hide
+      allow update: if (member()
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['replyCount', 'lastAt', 'lastName'])
+          && request.resource.data.replyCount == resource.data.replyCount + 1
+          && request.resource.data.lastAt == request.time
+          && request.resource.data.lastName == me().name)
+        || (isAdmin() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['hidden']));
+      allow delete: if isAdmin() || (signedIn() && resource.data.uid == uid());
+
+      // threads/{id}/replies/{id} → {body, uid, name, created, hidden}
+      match /replies/{replyId} {
+        allow read: if signedIn();
+        allow create: if member()
+          && request.resource.data.keys().hasOnly(['body', 'uid', 'name', 'created', 'hidden'])
+          && request.resource.data.uid == uid()
+          && request.resource.data.name == me().name
+          && text(request.resource.data.body, 4000) && clean(request.resource.data.body)
+          && request.resource.data.created == request.time
+          && request.resource.data.hidden == false;
+        allow update: if isAdmin() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['hidden']);
+        allow delete: if isAdmin() || (signedIn() && resource.data.uid == uid());
+      }
+    }
+
+    // reports: anyone signed in can report; only moderators can read or dismiss
+    match /reports/{reportId} {
+      allow create: if signedIn() && request.resource.data.by == uid()
+        && request.resource.data.keys().hasOnly(['by', 'kind', 'threadId', 'replyId', 'name', 'uid', 'excerpt', 'created'])
+        && request.resource.data.excerpt is string && request.resource.data.excerpt.size() <= 300;
+      allow read, delete: if isAdmin();
+    }
+
+    // admins/{uid}: added by the owner in the Firebase console. Each person can only check themselves.
+    match /admins/{adminId} {
+      allow read: if signedIn() && adminId == uid();
+    }
+  }
+}
