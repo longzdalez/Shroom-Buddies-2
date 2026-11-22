@@ -76,3 +76,50 @@ button.icon.on { filter: none; }
 #settingsBtn .gear-ico { width: 26px; height: 26px; filter: drop-shadow(0 0 5px rgba(244, 207, 110, .55)); transition: transform .6s var(--spring), filter .3s; }
 #settingsBtn:active { transform: none; }
 #settingsBtn:active .gear-ico { transform: rotate(90deg) scale(.9); }
+
+/* ===== Message Centre (community forum) ===== */
+#forumBtn { display: none; right: 50px; padding: 5px 7px; line-height: 0; }
+body.forum-on #forumBtn { display: block; }
+#forumBtn .chat-ico { width: 26px; height: 26px; filter: drop-shadow(0 0 5px rgba(244, 207, 110, .55)); }
+#forumBtn:active { transform: scale(.9); }
+#forumBtn .chat-dot { position: absolute; top: 3px; right: 3px; width: 9px; height: 9px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 8px var(--orange), 0 0 0 2px rgba(10, 22, 48, .9); opacity: 0; transform: scale(0); transition: .3s var(--spring); }
+#forumBtn.unread .chat-dot { opacity: 1; transform: scale(1); animation: pulse 2s ease-in-out infinite; }
+@media (max-width: 420px) { body.forum-on .brand { margin-left: -40px; } }
+@media (max-width: 350px) { body.forum-on .brand span { font-size: .85rem; } }
+
+.forum-rules { margin: 4px 0 10px; padding: 10px 12px; border-radius: 12px; background: rgba(244, 207, 110, .07); border: 1px solid var(--line-soft); font-size: .85rem; }
+.forum-rules ol { margin: 6px 0 0; padding-left: 18px; line-height: 1.45; color: var(--muted); }
+.forum-tabs { margin-bottom: 10px; }
+.fthread .tile-label { font-size: .95rem; }
+.fthread .tile-sub { margin-top: 2px; }
+.fthread.new { box-shadow: var(--raised), 0 0 0 1px rgba(255, 138, 42, .6), 0 0 18px rgba(255, 138, 42, .3); }
+.fnew { margin-left: auto; padding: 2px 8px; border-radius: 99px; background: var(--btn); color: #fff; font-size: .7rem; font-weight: 700; }
+.fname { color: var(--gold-hi); font-weight: 600; }
+.fname.me { color: var(--orange); }
+.fpost { margin-bottom: 10px; }
+.fpost.reply { padding: 10px 12px; border-radius: 14px; background: rgba(8, 18, 40, .35); border: 1px solid var(--line-soft); }
+.fpost h3 { margin: 6px 0; font-size: 1.05rem; }
+.fmeta { font-size: .75rem; color: var(--muted); }
+.ftext { margin-top: 6px; line-height: 1.5; word-wrap: break-word; overflow-wrap: anywhere; }
+.factions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.hidden-post { opacity: .55; border-style: dashed; }
+.freply-box { position: sticky; bottom: -28px; margin: 12px -4px 0; padding: 10px; border-radius: 16px; background: linear-gradient(180deg, rgba(40, 66, 112, .97), rgba(20, 38, 74, .97)); border: 1px solid var(--line); box-shadow: 0 -8px 20px rgba(0, 0, 0, .35); }
+.freply-box textarea { min-height: 70px; margin: 0 0 8px; }
+.fid { font-family: ui-monospace, monospace; font-size: .8rem; word-break: break-all; padding: 8px; border-radius: 10px; background: rgba(0, 0, 0, .25); }
+
+/* ===== About & legal folders (Settings) ===== */
+.folder-tabs { display: flex; gap: 4px; margin: 4px 0 0; padding: 0 4px; overflow-x: auto; scrollbar-width: none; }
+.folder-tabs::-webkit-scrollbar { display: none; }
+.folder-tabs button {
+  flex: 0 0 auto; padding: 8px 12px 9px; border-radius: 12px 12px 0 0; font-size: .82rem; font-weight: 600; color: var(--muted); text-shadow: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .02)); border: 1px solid var(--line-soft); border-bottom: 0; box-shadow: none;
+}
+.folder-tabs button.on { color: var(--gold-hi); background: linear-gradient(180deg, rgba(244, 207, 110, .2), rgba(8, 18, 40, .55)); border-color: var(--line); position: relative; z-index: 1; }
+.folder-body { margin-top: -1px; padding: 14px; border-radius: 0 14px 14px 14px; border: 1px solid var(--line); background: rgba(8, 18, 40, .55); box-shadow: inset 0 2px 8px rgba(0, 0, 0, .3); line-height: 1.55; font-size: .9rem; }
+.folder-body h3 { margin: 0 0 8px; }
+.folder-body h4 { margin: 14px 0 4px; font-family: var(--serif); font-size: .85rem; color: var(--gold); letter-spacing: .03em; }
+.folder-body ul { margin: 4px 0 10px; padding-left: 20px; }
+.about-split { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 6px 0 10px; }
+.about-split > div { padding: 10px; border-radius: 12px; background: rgba(244, 207, 110, .06); border: 1px solid var(--line-soft); font-size: .84rem; }
+.about-split ul { padding-left: 16px; margin: 4px 0 0; }
+.about-date { margin: 12px 0 0; }
