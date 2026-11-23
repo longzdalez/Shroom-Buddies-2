@@ -71,3 +71,31 @@ actions.aboutTab = (d, el) => {
   const card = el.closest('.about-card');
   if (card) { card.outerHTML = aboutCard(); return true; }
 };
+
+/* ----- Share the app (top of Settings) ----- */
+const SHARE_URL = 'https://longzdalez.github.io/Shroom-Buddies-2/';
+const SHARE_TEXT = 'Shroom Buddies: a free app for microdosing check-ins, a tracker, journal, practices and guides. Everything stays private on your own phone. Open the link, then add it to your home screen:';
+
+function shareCard() {
+  return `<div class="card share-card"><h2>💌 Share Shroom Buddies</h2>
+    <p class="muted">Send the app to a friend. They get their own fresh copy. None of your entries are shared.</p>
+    <button class="wide" data-do="shareApp">📤 Share the app</button>
+    <button class="ghost wide mt" data-do="copyAppLink">🔗 Copy link</button></div>`;
+}
+
+const settingsBodyBeforeShare = settingsBody;
+settingsBody = function () { return shareCard() + settingsBodyBeforeShare(); };
+
+actions.shareApp = async (d, el) => {
+  if (navigator.share) {
+    try { await navigator.share({ title: 'Shroom Buddies', text: SHARE_TEXT, url: SHARE_URL }); return; }
+    catch (e) { if (e && e.name === 'AbortError') return; }
+  }
+  return actions.copyAppLink(d, el);
+};
+
+actions.copyAppLink = async (d, el) => {
+  const ok = await copyText(SHARE_TEXT + ' ' + SHARE_URL);
+  toast(ok ? 'Link copied. Paste it into a message.' : SHARE_URL);
+  if (ok && el) sparkleFrom(el, 14, 50);
+};
