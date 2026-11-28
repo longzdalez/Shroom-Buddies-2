@@ -1,6 +1,6 @@
 // Shroom Buddies service worker: makes the app work offline.
 // Change the number in CACHE every time any file changes, so phones pick up the new version.
-const CACHE = 'sb-v29';
+const CACHE = 'sb-v30';
 const FILES = [
   './', 'index.html', 'style-v3.css', 'style-v5-extra.css', 'app-v5.js', 'forum-v1.js', 'about-v1.js', 'folders-v1.js', 'manifest.json', 'site.json', 'quotes.json', 'reels.json', 'links.json', 'guides/guides.json',
   'img/logo.svg', 'img/icon-192.png', 'img/icon-512.png', 'img/apple-touch-icon.png',

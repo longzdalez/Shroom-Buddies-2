@@ -78,14 +78,13 @@ button.icon.on { filter: none; }
 #settingsBtn:active .gear-ico { transform: rotate(90deg) scale(.9); }
 
 /* ===== Message Centre (community forum) ===== */
-#forumBtn { display: none; right: 50px; padding: 5px 7px; line-height: 0; }
-body.forum-on #forumBtn { display: block; }
+#forumBtn { display: block; right: 50px; padding: 5px 7px; line-height: 0; }
 #forumBtn .chat-ico { width: 26px; height: 26px; filter: drop-shadow(0 0 5px rgba(244, 207, 110, .55)); }
 #forumBtn:active { transform: scale(.9); }
 #forumBtn .chat-dot { position: absolute; top: 3px; right: 3px; width: 9px; height: 9px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 8px var(--orange), 0 0 0 2px rgba(10, 22, 48, .9); opacity: 0; transform: scale(0); transition: .3s var(--spring); }
 #forumBtn.unread .chat-dot { opacity: 1; transform: scale(1); animation: pulse 2s ease-in-out infinite; }
-@media (max-width: 420px) { body.forum-on .brand { margin-left: -40px; } }
-@media (max-width: 350px) { body.forum-on .brand span { font-size: .85rem; } }
+@media (max-width: 420px) { .brand { margin-left: -40px; } }
+@media (max-width: 350px) { .brand span { font-size: .85rem; } }
 
 .forum-rules { margin: 4px 0 10px; padding: 10px 12px; border-radius: 12px; background: rgba(244, 207, 110, .07); border: 1px solid var(--line-soft); font-size: .85rem; }
 .forum-rules ol { margin: 6px 0 0; padding-left: 18px; line-height: 1.45; color: var(--muted); }
